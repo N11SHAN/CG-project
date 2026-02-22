@@ -1,0 +1,325 @@
+% ==========================================================
+% SAMPLE REPORT (COMPUTER GRAPHICS) — SAME TEMPLATE STRUCTURE
+% ==========================================================
+% NOTE:
+% 1) This is a “sample content” report that fits your template layout.
+% 2) It assumes you have these files:
+%    - includes/coverpage.tex
+%    - includes/copyright.tex
+%    - includes/acknowledgemt.tex
+%    - includes/abstract.tex
+%    - includes/acronyms.tex
+%    - includes/ref.bib
+%    - images/ (with some sample images)
+%
+% 3) If you compile with minted, use:
+%    pdflatex -shell-escape main.tex
+% ==========================================================
+
+\documentclass[a4paper, 12pt]{report}
+
+%---PREAMBLE BEGINS HERE---
+
+\usepackage{graphicx}
+\usepackage[a4paper]{geometry}
+\usepackage{titlesec}
+\usepackage{minted}
+\usepackage{amsmath, amsthm, amsfonts}
+\usepackage{mathptmx}
+\usepackage[skip=18pt, indent=40pt]{parskip}
+\usepackage{setspace}
+\usepackage[acronym, nomain, section=section]{glossaries}
+\usepackage{glossaries-extra}
+\usepackage[nottoc]{tocbibind}
+\usepackage{ifthen}
+\usepackage{tocloft}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
+
+% Creating new style acronyms for tabulating acronyms
+\newglossarystyle{acronyms}{%
+  \renewenvironment{theglossary}{\begin{tabular}{ll}}{\end{tabular}}%
+  \renewcommand*{\glossaryheader}{}%
+  \renewcommand*{\glsgroupheading}[1]{}%
+  \renewcommand*{\glossentry}[2]{\glsentryitem{##1}\glstarget{##1}{\glossentryname{##1}} & \glossentrydesc{##1}\tabularnewline}%
+  \renewcommand*{\subglossentry}[3]{\glstarget{##2}{\glossentryname{##2}} & \glossentrydesc{##2}\tabularnewline}%
+  \renewcommand*{\glsgroupskip}{}%
+}
+\makeglossaries
+
+% defining the page margins
+\newgeometry{
+    top=1in,
+    bottom=1in,
+    inner=1.5in,
+    outer=1in,
+}
+
+% defining variables, DO CHANGE THIS BEFORE COMPILE
+\newcommand{\projectTitle}{Computer Graphics Mini Project Report}
+\newcommand{\projectDate}{February, 2026}
+\newcommand{\projectAuthor}{Seven Shades}
+
+% Paragraph formating for heading and normal paragraphs
+\titleformat{\chapter}
+   {\fontsize{12pt}{12pt}\bfseries\uppercase}{\thechapter.}{1em}{}[\vspace{-\parskip}]
+\titlespacing*{\chapter}{0pt}{0pt}{12pt}
+
+\titleformat{\section}
+   {\fontsize{12pt}{12pt}\bfseries}{\thesection}{1em}{}
+\titlespacing*{\section}{0pt}{18pt}{10pt}
+
+\titleformat{\subsection}
+   {\fontsize{12pt}{12pt}\bfseries}{\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0pt}{18pt}{8pt}
+
+\titleformat{\subsubsection}
+   {\fontsize{12pt}{12pt}\bfseries}{\thesubsubsection}{1em}{}
+\titlespacing*{\subsubsection}{0pt}{0pt}{6pt}
+\setcounter{secnumdepth}{3}
+
+% Customizing chapter section in Table of Contents
+\renewcommand{\cftfigpresnum}{Figure\ }
+\setlength{\cftfignumwidth}{5em}
+
+\renewcommand{\cfttabpresnum}{Table\ }
+\setlength{\cfttabnumwidth}{4.5em}
+
+\renewcommand{\contentsname}{Table of Contents}
+\setlength{\cftbeforechapskip}{6pt}
+\renewcommand{\cftchapaftersnum}{.}
+\renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
+\renewcommand{\cftchapfont}{\bfseries}
+
+\renewcommand{\cfttoctitlefont}{\fontsize{12pt}{12pt}\bfseries}
+\setlength{\cftbeforetoctitleskip}{0pt}
+\setlength{\cftaftertoctitleskip}{12pt}
+
+\renewcommand{\cftloftitlefont}{\fontsize{12pt}{12pt}\bfseries}
+\setlength{\cftbeforeloftitleskip}{20pt}
+\setlength{\cftafterloftitleskip}{20pt}
+
+\renewcommand{\cftlottitlefont}{\fontsize{12pt}{12pt}\bfseries}
+\setlength{\cftbeforelottitleskip}{20pt}
+\setlength{\cftafterlottitleskip}{20pt}
+
+\hypersetup{
+  pdfauthor={\projectAuthor},
+  pdftitle={\projectTitle}
+}
+
+\title{\projectTitle}
+\author{\projectAuthor}
+\date{\projectDate}
+
+\doublespacing
+
+%---PREAMBLE ENDS HERE---
+\begin{document}
+
+\include{includes/acronyms}
+
+%---MAIN DOCUMENT BEGINS HERE---
+
+\include{includes/coverpage}
+
+\onehalfspacing
+
+\pagenumbering{roman}
+\pagestyle{plain}
+
+\include{includes/copyright}
+\include{includes/acknowledgment}
+\include{includes/abstract}
+
+\tableofcontents
+\newpage
+
+\listoffigures
+\newpage
+
+\listoftables
+\newpage
+
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\printglossary[type=acronym,style=acronyms]
+\newpage
+
+\pagenumbering{arabic}
+\pagestyle{fancy}
+
+% ==========================================================
+% CHAPTER 1: INTRODUCTION
+% ==========================================================
+\chapter{Introduction}
+
+Developing a 2.5D Pong game using Unity involves combining 2D gameplay mechanics with 3D visual presentation, a common approach in modern game development to create immersive experiences while retaining simplified gameplay \cite{02}. Unity, as a versatile game engine, supports both 2D and 3D game creation, making it suitable for such projects. The core principle of a 2.5D game often involves rendering 2D gameplay elements within a 3D environment, leveraging perspective cameras and 3D models to add depth and visual appeal.
+
+\section{Background Introduction}
+For a 2.5D Pong game, the paddles and ball, while appearing as 3D objects, would typically be constrained to move within a 2D plane. This can be achieved by setting their Z-axis position to a constant value, effectively limiting their movement to the X-Y plane. Implementing the physics for such a game often involves utilizing Unity's 2D physics system, including Rigidbody2D and Collider2D components, to ensure accurate collision detection and realistic movement behavior. This approach is crucial for maintaining deterministic physics, which is essential for games like Pong, where precise interactions are key to gameplay.
+
+
+\section{Motivation}
+Making a 3D game for a beginner is very hard. So, I made a game that looks 3D in visual but works in 2D mechanics. It is a good start for making games and learning to use unity. 
+
+\section{Objectives}
+The main objectives of the project are listed below:
+\begin{itemize}
+    \item To learn the basic use of Unity 2D and 3D platform.
+    \item To create a playable pong game.
+    \item To learn basics of C#.
+    \item To learn positioning, scaling, linking, etc.
+\end{itemize}
+
+\section{Scope}
+This project covers fundamental Unity Game development concepts:
+\begin{itemize}
+    \item \textbf{Game Engine Proficiency:} A primary scope involves demonstrating proficiency in using the Unity game engine, including its interface, asset management, and scripting environment. This includes understanding how to set up a project, import assets, and configure game objects.
+    \item \textbf{C# Scripting:}The project will extensively use C# for implementing game logic. This includes scripts for paddle movement, ball physics (e.g., collision detection, rebound mechanics, speed adjustments), and scoring systems.
+    \item \textbf{2.5D Implementation:}A significant part of the scope is the successful creation of a 2.5D visual style. This involves rendering 2D gameplay elements within a 3D environment, using perspective cameras to simulate depth
+\end{itemize}
+
+
+% ==========================================================
+% CHAPTER 2: LITERATURE REVIEW
+% ==========================================================
+\chapter{Literature Review}
+
+\section{Game Development with Unity Engine}
+Unity stands as a leading game engine widely utilized across various platforms and game genres. \cite{01}\cite{04} Its architecture provides an integrated development environment (IDE) that facilitates asset management, scene configuration, and scripting. The C# programming language is central to Unity development, enabling the creation of intricate game logic, object behaviors, and interactions.\cite{03}
+
+\section{Understanding 2.5D Game Design}
+In game design, the term "2.5D" describes the incorporation of 2D gameplay into a 3D visual environment. By fixing the Y-axis position, this method limits player or object movement to a 2D plane, usually the X-Z axis, while frequently using perspective cameras and 3D models to give the appearance of depth.\cite{02} 
+
+\section{Polygon Filling}
+Filling polygons is essential for rendering solid shapes. A common technique is the scanline fill algorithm, which computes intersections of polygon edges with horizontal scanlines and fills between pairs of intersections.
+
+\section{Physics and Collision Detection in Unity}
+Games like Pong need physics that are both accurate and predictable. Unity's 2D physics system is very helpful for making objects interact in a realistic way. For game objects, this system mostly uses \textbf{Rigidbody2D} and \textbf{Collider2D} parts. \textbf{Rigidbody2D} lets physics forces and collisions affect objects, and \textbf{Collider2D} components set the shape for collision detection. Setting these parts up correctly makes sure that the game always has the same results.
+\section{Artificial Intelligence (AI) in Games:} For computer opponents, AI can range from simple reactive behaviors to more complex predictive algorithms, enabling varying difficulty levels and engaging single-player experiences.
+% ==========================================================
+% CHAPTER 3: METHODOLOGY
+% ==========================================================
+\chapter{Methodology}
+
+\section{ Development Environment and Tools}
+The project will be developed using the Unity Engine (Unity 2022.3.62f3). The primary programming language will be C#. Version control will be managed using Git to facilitate collaborative development and track changes.
+
+\section{Game Design and Mechanics}
+The game will feature two paddles, one controlled by the player and the other by an AI. Paddle movement will be restricted to vertical (Y-axis) translation within defined boundaries. The ball will possess physics-based movement, including rebound angles calculated upon collision with paddles and walls. Scoring will occur when the ball passes the opponent's paddle. The 2.5D aesthetic will be achieved through a static perspective camera and 3D models for the paddles, ball, and arena, with their movement constrained to the X-Z plane to maintain 2D gameplay 
+
+\section{Implementation Details}
+
+\begin{itemize}
+    
+
+\item \textbf{Asset Creation:}
+3D models for paddles, the ball, and the game environment (arena, background) will be either custom-created or acquired from Unity Asset Store, ensuring they align with the 2.5D visual style.
+
+\item \textbf{Scripting:}
+Core game functionalities will be managed by C# scripts. Key scripts will include PlayerController for player input and paddle movement, BallPhysics for handling ball movement and collision logic, and GameManager for managing game states, scoring, and AI logic. All time-dependent operations, such as movement, will utilize Time.deltaTime to ensure frame-rate independence.
+
+\item \textbf{Physics Implementation:}
+Rigidbody2D components will be attached to the ball and paddles to enable physics interactions. Collider2D components (e.g., box colliders for paddles and a circle collider for the ball) will be configured to detect collisions accurately. Physics materials may be used to control friction and bounciness.
+
+\item \textbf{UI Development:}
+The user interface will be built using Unity's Canvas system. A scoreboard displaying player and AI scores will be prominently featured. Other UI elements, such as a start screen, pause menu, and game-over screen, will be implemented. The UI will be rendered in World Space for seamless integration with the 3D environment.
+
+\item \textbf{AI Implementation:}
+For the AI opponent, a basic reactive algorithm will be implemented initially. This AI will track the ball's Y-position and attempt to move its paddle to intercept it. Further iterations may explore predictive AI to anticipate ball trajectory.
+\end{itemize}
+\begin{table}[htb]
+    \centering
+    
+    \begin{tabular}{llp{7cm}}
+        \toprule
+        \textbf{Script Name} & \textbf{Purpose} \\
+        \midrule
+        \texttt{PlayerController} & Handles player input and paddle movement & 
+        \addlinespace\\
+        \texttt{BallPhysics} & Manages the ball's movement, collision and rebound logic. & \\
+        \addlinespace
+        \texttt{GameManager} & Controls overall game states, scoring, game setup, and AI. &\\
+        \addlinespace
+        \texttt{AIScript} & Implements the AI opponent's movement logic. & \\
+        \bottomrule
+    \end{tabular}
+    \caption{Core Script Functionality Table for 2.5D Pong Game}
+    \label{tab:script_functionality}
+\end{table}
+
+
+\section{Testing Strategy}
+Testing will be conducted iteratively throughout the development process. Unit tests will be performed on individual scripts (e.g., paddle movement, ball physics calculations). Integration tests will verify the interactions between different game components. Playtesting will be essential to assess gameplay balance, responsiveness, and overall user experience. This includes testing collision accuracy, AI behavior, and UI functionality across different simulated conditions.
+\section{Screenshots}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.82\textwidth]{images/environment.png}
+    \caption{Game Environment after asset creation}
+    \label{fig:env}
+\end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.82\textwidth]{images/physics.png}
+    \caption{Collider, bouncing material and rigidbody used in ball object}
+    \label{fig:phy}
+\end{figure}
+% ==========================================================
+% CHAPTER 4: RESULT AND ANALYSIS
+% ==========================================================
+\chapter{Result and Analysis}
+
+\section{Implemented Features}
+The developed 2.5D Pong game will showcase fully functional core mechanics, including responsive paddle controls for the player and a basic AI opponent. The ball will exhibit realistic physics-based movement, including deflections upon collision with paddles and walls. A clear and intuitive UI will display scores and provide essential game feedback. Visuals will demonstrate the intended 2.5D aesthetic, leveraging 3D models and perspective camera views.
+
+\section{Performance Analysis}
+Frame rate stability, CPU/GPU usage, and memory footprint will all be used to judge performance. To make sure that the game runs smoothly on all target hardware, optimization methods like efficient asset loading, batching, and the right use of physics calculations will be used. Any performance problems that are noticed and how they were fixed will be written down.
+
+\section{Challenges and Solutions}
+During development, challenges may arise in areas such as fine-tuning ball physics (e.g., consistent rebound angles, speed acceleration), balancing AI difficulty, and optimizing rendering for the 2.5D effect. Solutions could involve iterative adjustments to physics parameters, refining AI logic, or implementing specific shaders and post-processing effects within Unity. For instance, ensuring deterministic physics in Pong requires careful management of time steps and collision handling
+
+% ==========================================================
+% CHAPTER 5: CONCLUSION AND FUTURE ENHANCEMENT
+% ==========================================================
+\chapter{Conclusion and Future Enhancement}
+
+\section{Conclusion}
+This project successfully outlines the development of a 2.5D Pong game using Unity, demonstrating the integration of classic gameplay with contemporary visual design. The core objectives of implementing functional mechanics, an AI opponent, and an effective UI within a 2.5D environment are addressed through the proposed methodology. The use of Unity's extensive tools and C# scripting facilitates a robust and engaging game experience.
+
+\section{Future Enhancements}
+\begin{itemize}
+    \item \textbf{Advanced AI:} Implementing more sophisticated AI algorithms that utilize machine learning techniques for predictive ball tracking and adaptive difficulty\cite{04}
+    \item \textbf{Online Multiplayer:} Integrating networking solutions, such as Photon Unity Network, to enable competitive online multiplayer functionality.\cite{05}
+    \item \textbf{Customizable Game Modes:} Introducing options for different game rules, paddle sizes, ball speeds, or environmental obstacles.
+\end{itemize}
+
+% ==========================================================
+% APPENDIX
+% ==========================================================
+\appendix
+\chapter{Appendices}
+
+\section{Key Controls (Example)}
+\begin{itemize}
+    \item \textbf{Arrow-left/Arrow-right:} moves paddle left/right
+\end{itemize}
+
+
+
+% ==========================================================
+% REFERENCES
+% ==========================================================
+\bibliographystyle{ieeetr}
+\bibliography{includes/ref}
+% use \cite{} to cite the part taken as reference
+
+\end{document}
